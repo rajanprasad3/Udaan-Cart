@@ -1,0 +1,1731 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AspireHunt – Exams & Jobs</title>
+<style>
+  :root{
+    --clr-primary:#0d47a1;
+    --clr-primary-light:#90caf9;
+    --clr-hover:#f0f0f0;
+    --clr-active:#00264d;
+    --clr-icon:#ff9800;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Arial, sans-serif;}
+
+  /* ====== TOP NAV ====== */
+ header {
+    background: radial-gradient(circle at center, #000000, #1a237e, #16131a);
+    background-size: cover;
+    color: #ffffff;
+    box-shadow: 0 0 10px #ffea00, 0 0 20px #00e5ff, 0 0 30px #d500f9;
+    padding: 1vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    height: 10vh;
+    box-shadow: 0 0.4vh 0.6vh rgba(0, 0, 0, 0.1);
+    position:fixed;
+    top:0%;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 5.2vh;
+    font-weight: bold;
+    color:white;
+    position: relative;
+    width: 20vw;
+    height: 100%;
+    background:transparent;
+    display: flex;
+    justify-content: center;
+    margin-left: 1vw;
+    position: relative;
+    left: 1vw;
+}
+
+.logo img{
+    height:90%;
+    width:20%;
+    mix-blend-mode: color-dodge;
+}
+nav{
+    width: fit-content;
+    padding:0;
+    position: relative;
+    top:18%;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    right:25vw;
+    left: -5vw;
+    
+}
+
+.nav-menu li {
+    position: relative;
+    margin: 1vh 1vw; 
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 1vh 1.5vw;
+    display: block;
+    font-size: 1.5rem;
+    transition: all 0.5s ease-out;
+}
+.nav-menu a:hover, a:focus {
+    background-color: rgb(100, 143, 230);
+    color: #fff;
+}
+.nav-menu a:active {
+    background-color:rgb(45, 106, 228);
+}
+
+.nav-menu .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(23, 13, 37);
+    min-width: 250px;
+    top: 4vh;
+    left: 0;
+    box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
+    padding: 1vh 0;
+}
+
+.nav-menu .dropdown-content li {
+    width: 100%;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu .dropdown-content a {
+    padding: 10px 1vw;
+    display: block;
+    color: white;
+    position: relative;
+    
+}
+
+.nav-menu .dropdown-content a:hover {
+    width: 100%;
+}
+
+.nested-dropdown-content {
+    display: none;
+    margin-top: 0.5vh;
+    padding:0;                   
+    width: 100%; 
+}
+
+.nested-dropdown.open .nested-dropdown-content {
+    display: block;
+    width: 100%;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.nested-dropdown-content,
+.second-nested-dropdown-content {
+    display: none;
+    margin-top: 0.5vh;
+    padding-left:;
+}
+
+.nested-dropdown.open .nested-dropdown-content,
+.second-nested-dropdown.open .second-nested-dropdown-content {
+    display: block;
+}
+
+ /* ========= SIDEBAR (unchanged) ========= */
+  .sidebar{position:fixed;top:10vh;left:0;width:20vw;height:90vh;
+           background:linear-gradient(#fafafa,#fff);border-right:1px solid #ccc;
+           overflow-y:auto;padding:2vh 1vw;box-shadow:2px 0 10px rgba(0,0,0,.05);}
+  .sidebar h3{font-size:1.4rem;color:#000;margin-bottom:2vh;border-bottom:3px solid var(--clr-primary);}
+  .sidebar ul{list-style:none;}
+  .sidebar li{display:flex;align-items:center;gap:.8vw;padding:1.4vh 1vw;border:1px solid #d7d7d7;
+              border-radius:2px;margin-bottom:1vh;font-size:1.1rem;background:#fff;cursor:pointer;transition:.25s;}
+  .sidebar li:hover{background:var(--clr-hover);transform:translateX(4px);color:var(--clr-active);}
+  .sidebar li.active{background:var(--clr-active);color:#fff;}
+  .sidebar li.active::before{content:"\25B6";color:var(--clr-icon);font-size:1.2rem;margin-right:.4vw;}
+  .sidebar li:not(.active)::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--clr-icon);display:inline-block;margin-right:.4vw;}
+  .sidebar li:not(.active)::before::after{content:"";position:absolute;inset:3px 4px 2px 4px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg);}
+
+  /* ========= MAIN CONTENT ========= */
+  .main-container{margin:12vh 2vw 4vh 22vw;}
+  section{display:none;}
+  section.active{display:block;}
+  section h3{text-align:center;font-size:1.8rem;color:var(--clr-primary);margin:2vh 0 3vh;}
+
+  .flex-container{display:grid;gap:2vw;grid-template-columns:repeat(auto-fit,minmax(30vw,1fr));}
+  .flex-box{
+    background:#fff;border:1px solid #ccc;border-radius:10px;
+    padding:3vh 2vw;min-height:600px;                 /* bigger card */
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:.3s;
+  }
+  .flex-box:hover{transform:translateY(-6px);box-shadow:0 6px 20px rgba(0,0,0,.14);}
+  .flex-box strong{font-size:1.3rem;color:#000;}
+  .job-section{font-size:.95rem;margin:.7vh 0;line-height:1.4;}
+
+  /* extra styling blocks inside cards */
+  .eligibility-block{
+    margin:1vh 0;padding:1vh;background:#f9f9f9;
+    border-left:5px solid var(--clr-primary);font-size:1rem;
+  }
+  .info-title{color:green;font-size:1.15rem;margin-bottom:.4vh;}
+  .info-list{padding-left:1.2em;font-size:.95rem;}
+  .info-list li{margin:.3vh 0;}
+
+  /* button hover */
+  .job-actions a{display:inline-block;margin-top:1vh;margin-right:1vw;text-decoration:none;
+                 background:var(--clr-primary);color:#fff;padding:.8vh 1.4vw;border-radius:6px;
+                 font-size:1rem;transition:.3s;}
+  .job-actions a:hover{background:#1565c0;transform:scale(1.05);}
+
+  /* ========= RESPONSIVE ========= */
+  @media(max-width:768px){
+    .sidebar{width:40vw;}
+    .main-container{margin-left:42vw;}
+  }
+  @media(max-width:600px){
+    .sidebar{display:none;}
+    .main-container{margin-left:0;}
+    .flex-container{grid-template-columns:1fr;gap:1.2rem;}
+    .flex-box{min-height:auto;}
+  }
+ 
+</style>
+</head>
+<body>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Toggle nested dropdowns on click
+            document.querySelectorAll(".nested-dropbtn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    this.parentElement.classList.toggle("open");
+                });
+            });
+
+            document.querySelectorAll(".second-nested-dropbtn").forEach(button => {
+                button.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                    this.parentElement.classList.toggle("open");
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener("click", function () {
+                document.querySelectorAll(".nested-dropdown").forEach(el => el.classList.remove("open"));
+                document.querySelectorAll(".second-nested-dropdown").forEach(el => el.classList.remove("open"));
+            });
+        });
+    </script>
+     
+    <header>
+        <div class="logo"><img src="Weblogo-removebg.png" alt="" srcset="">AspireHunt</div>
+        <nav>
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">jobs ▾</a>
+                    <ul class="dropdown-content">
+                        <li class="nested-dropdown">
+                            <a href="#" class="nested-dropbtn">tech ▾</a>
+                            <ul class="nested-dropdown-content">
+                                <li><a href="tech-jobs.html">IT</a></li>
+                                <li><a href="#">y</a></li>
+                                <li><a href="#">z</a></li>
+                            </ul>
+                        </li>
+                        <li class="nested-dropdown">
+                            <a href="#" class="nested-dropbtn">non-tech ▾</a>
+                            <ul class="nested-dropdown-content">
+                                <li><a href="#">x</a></li>
+                                <li><a href="#">y</a></li>
+                                <li><a href="#">z</a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Internships ▾</a>
+                    <ul class="dropdown-content">
+                        <li class="nested-dropdown">
+                            <a href="#" class="nested-dropbtn">tech ▾</a>
+                            <ul class="nested-dropdown-content">
+                                <li><a href="#">x</a></li>
+                                <li><a href="#">y</a></li>
+                                <li><a href="#">z</a></li>
+                            </ul>
+                        </li>
+                        <li class="nested-dropdown">
+                            <a href="#" class="nested-dropbtn">non-tech ▾</a>
+                            <ul class="nested-dropdown-content">
+                                <li><a href="#">x</a></li>
+                                <li><a href="#">y</a></li>
+                                <li><a href="#">z</a></li>
+                                
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="AboutAspireHunt.html">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+          
+        </nav>
+        
+    </header>
+
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+  <h3>Top Upcoming Exams</h3>
+  <ul id="sidebarList">
+    <li onclick="showSection('ssc',this)" class="active">SSC</li>
+    <li onclick="showSection('banking',this)">Banking</li>
+    <li onclick="showSection('teaching',this)">Teaching</li>
+    <li onclick="showSection('railways',this)">Railways</li>
+    <li onclick="showSection('nta',this)">NTA</li>
+    <li onclick="showSection('upsc',this)">UPSC</li>
+    <li onclick="showSection('law',this)">LAW Exams</li>
+    <li onclick="showSection('upsssc',this)">UPSSSC</li>
+    <li onclick="showSection('uppcs',this)">UPPCS</li>
+    <li onclick="showSection('defence',this)">Defence</li>
+    <li onclick="showSection('police',this)">Police</li>
+    <li onclick="showSection('bpsc',this)">BPSC</li>
+    <li onclick="showSection('board',this)">All Board Exams</li>
+    <li onclick="showSection('upsc',this)">Others</li>
+
+  </ul>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+  <div class="main-container">
+
+    <!-- ### SSC SECTION ### -->
+    <section id="ssc" class="active">
+      <h3>🔹 SSC Jobs</h3>
+      <div class="flex-container">
+
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+ <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+ <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+ <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+<!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Business Analyst (Salesforce)</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+
+
+        <!-- ==== DUPLICATE/ADAPT THE NEXT 5 CARDS AS NEEDED ==== -->
+        <!-- For brevity, other SSC cards keep same structure but with their own data.
+             Copy the block above, swap job title/company/eligibility as required. -->
+
+      </div>
+    </section>
+
+    <!-- (Other sections unchanged) -->
+     <section id="banking">
+      <h3>🔹 Banking Jobs</h3>
+      <div class="flex-container">
+
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+        
+
+        <!-- ==== DUPLICATE/ADAPT THE NEXT 5 CARDS AS NEEDED ==== -->
+        <!-- For brevity, other SSC cards keep same structure but with their own data.
+             Copy the block above, swap job title/company/eligibility as required. -->
+
+      </div>
+    </section>
+    <!-- (Other sections unchanged) -->
+     <section id="teaching">
+      <h3>🔹 Teaching Jobs</h3>
+      <div class="flex-container">
+
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Teaching Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+        
+
+        <!-- ==== DUPLICATE/ADAPT THE NEXT 5 CARDS AS NEEDED ==== -->
+        <!-- For brevity, other SSC cards keep same structure but with their own data.
+             Copy the block above, swap job title/company/eligibility as required. -->
+
+      </div>
+    </section>
+    <!-- (Other sections unchanged) -->
+     <section id="railways">
+      <h3>🔹 Railways Jobs</h3>
+      <div class="flex-container">
+
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Railways Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+        
+
+        <!-- ==== DUPLICATE/ADAPT THE NEXT 5 CARDS AS NEEDED ==== -->
+        <!-- For brevity, other SSC cards keep same structure but with their own data.
+             Copy the block above, swap job title/company/eligibility as required. -->
+
+      </div>
+    </section>
+    <!-- (Other sections unchanged) -->
+     <section id="nta">
+      <h3>🔹 NTA Exams</h3>
+      <div class="flex-container">
+
+        <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div clas
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+         <!-- CARD 1 -->
+        <div class="flex-box">
+          <strong>Banking Jobs</strong>
+          <div style="font-weight:bold;">Virtusa – Andhra Pradesh</div>
+
+          <!-- ELIGIBILITY -->
+          <div class="eligibility-block">
+            <strong>Eligibility:</strong> B.Tech / MBA graduates with Salesforce knowledge and strong analytical skills.
+          </div>
+
+          <!-- SYLLABUS -->
+          <div class="job-section">Syllabus: Aptitude, Reasoning, SQL</div>
+
+          <!-- IMPORTANT DATES -->
+          <div class="job-section">
+            <div class="info-title">Important Dates</div>
+            <ul class="info-list">
+              <li>Application Begin : <strong>06/06/2025</strong></li>
+              <li>Last Date for Apply Online : <strong style="color:red;">26/06/2025 upto 11 PM</strong></li>
+              <li>Pay Exam Fee Last Date : <strong>27/06/2025</strong></li>
+              <li>Correction Date : <strong>01–02 July 2025</strong></li>
+              <li>CBT Exam Date : <strong>06–11 August 2025</strong></li>
+              <li>Skill Test Exam Date : <strong>As per Schedule</strong></li>
+            </ul>
+          </div>
+
+          <!-- APPLICATION FEE -->
+          <div class="job-section">
+            <div class="info-title">Application Fee</div>
+            <ul class="info-list">
+              <li>General / OBC / EWS : <strong>₹100</strong></li>
+              <li>SC / ST : <strong>₹0 (Nil)</strong></li>
+              <li>All Category Female : <strong>₹0 (Exempted)</strong></li>
+              <li>Correction Charge : <strong>₹200 – First Time</strong></li>
+              <li>Correction Charge : <strong>₹500 – Second Time</strong></li>
+              <li>Payment via Debit/Credit Card, Net Banking or E-Challan</li>
+            </ul>
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="job-actions">
+            <a href="#">Job Link</a><a href="#">Apply</a>
+          </div>
+        </div>
+        
+
+        <!-- ==== DUPLICATE/ADAPT THE NEXT 5 CARDS AS NEEDED ==== -->
+        <!-- For brevity, other SSC cards keep same structure but with their own data.
+             Copy the block above, swap job title/company/eligibility as required. -->
+
+      </div>
+    </section>
+
+
+
+
+  </div>
+
+<script>
+function showSection(id, el){
+  // toggle active section
+  document.querySelectorAll('section').forEach(sec=>sec.classList.remove('active'));
+  const tgt=document.getElementById(id);
+  if(tgt) tgt.classList.add('active');
+  // highlight active sidebar item
+  document.querySelectorAll('.sidebar li').forEach(li=>li.classList.remove('active'));
+  if(el) el.classList.add('active');
+}
+</script>
+
+</body>
+</html>
